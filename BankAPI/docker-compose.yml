@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  api:
+    image: bankapi:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5155:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development

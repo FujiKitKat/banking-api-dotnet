@@ -8,8 +8,16 @@ using BankAPI.Services;
 using BankAPI.Services.Interfaces;
 using BankAPI.Validators.AccountValidators;
 using BankAPI.Validators.ClientValidators;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .MinimumLevel.Information()
+        .WriteTo.Console();
+});
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -37,11 +45,18 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
+var port = Environment.GetEnvironmentVariable("PORT");
+if (port != null)
+{
+    app.Urls.Add($"http://*:{port}");
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
 }
 
 app.UseHttpsRedirection();

@@ -10,30 +10,56 @@ namespace BankAPI.Services;
 public class ClientService : IClientService
 {
     private readonly IClientRepository _clientRepository;
+    private readonly ILogger<ClientService> _logger;
 
-    public ClientService(IClientRepository clientRepository)
+    public ClientService(IClientRepository clientRepository , 
+        ILogger<ClientService> logger)
     {
         _clientRepository = clientRepository;
+        _logger = logger;
     }
 
     public async Task<bool> ClientUpdateStatusAsync(int id, ClientStatus status)
     {
+        _logger.LogInformation(
+            "Updating status for client {ClientId} to {NewStatus}",
+            id,
+            status
+            );
+        
         var client = await _clientRepository.GetClientByIdAsync(id);
 
         if (client == null)
         {
+            _logger.LogWarning(
+                "Client {ClientId} was not found while updating status", 
+                id
+                );
+            
             return false;
         }
         
+        var oldStatus = client.Status;
         client.Status = status;
-
+        
         await _clientRepository.SaveAsync();
+        
+        _logger.LogInformation(
+            "Client {ClientId} was updated from {OldStatus} to {NewStatus}", 
+            id,
+            oldStatus,
+            status
+            );
         
         return true;
     }
 
-    public async Task<List<ClientResponseDTO>> GetActiveAclientsAsync()
+    public async Task<List<ClientResponseDTO>> GetActiveСlientsAsync()
     {
+        _logger.LogInformation(
+            "Getting active clients"
+            );
+        
         var clients = await _clientRepository.GetAllClients();
 
         return  clients
@@ -50,6 +76,10 @@ public class ClientService : IClientService
 
     public async Task<ClientResponseDTO> CreateClientAsync(ClientCreateDTO clientCreateDto)
     {
+        _logger.LogInformation(
+            "Creating new client"
+            );
+        
         var normalizeEmail = clientCreateDto.Email.Trim().ToLowerInvariant();
         
         ClientModel clientModel = new ClientModel
@@ -75,15 +105,29 @@ public class ClientService : IClientService
         
         await _clientRepository.SaveAsync();
         
+        _logger.LogInformation(
+            "Created new client"
+            );
+        
         return response;
     }
 
     public async Task<ClientResponseDTO?> GetClientByIdAsync(int id)
     {
+        _logger.LogInformation(
+            "Getting client {ClientId}", 
+            id
+            );
+        
         var client = await _clientRepository.GetClientByIdAsync(id);
         
         if(client == null)
         {
+            _logger.LogWarning(
+                "Client {ClientId} was not found", 
+                id
+                );
+            
             return null;
         }
 
@@ -95,16 +139,31 @@ public class ClientService : IClientService
             PhoneNumber = client.PhoneNumber,
             Status = client.Status
         };
+
+        _logger.LogInformation(
+            "Client {ClientId} was found", 
+            id
+            );
         
         return response;
     }
 
     public async Task<ClientResponseDTO?> UpdateClientAsync(int id, ClientUpdateDTO clientUpdateDto)
     {
+        _logger.LogInformation(
+            "Updating client{ClientId}", 
+            id
+            );
+        
         var  client = await _clientRepository.GetClientByIdAsync(id);
 
         if (client == null)
         {
+            _logger.LogWarning(
+                "Client {ClientId} was not found while updating information", 
+                id
+                );
+            
             return null;
         }
 
@@ -114,6 +173,11 @@ public class ClientService : IClientService
         
         await _clientRepository.SaveAsync();
 
+        _logger.LogInformation(
+            "Client {ClientId} was updated", 
+            id
+            );
+        
         return new ClientResponseDTO
         {
             Name = client.Name,
@@ -124,6 +188,10 @@ public class ClientService : IClientService
 
     public async Task<IEnumerable<ClientResponseDTO>> GetAllClientsAsync()
     {
+        _logger.LogInformation(
+            "Getting all clients"
+            );
+        
         var clients = await _clientRepository.GetAllClients();
         
         return clients.Select(x => new ClientResponseDTO
@@ -139,25 +207,50 @@ public class ClientService : IClientService
 
     public async Task<bool> DeleteClientAsync(int id)
     {
-        var client = await _clientRepository.GetClientByIdAsync(id);
+        _logger.LogInformation(
+            "Deleting client {ClientId}", 
+            id
+            );
+        
+    var client = await _clientRepository.GetClientByIdAsync(id);
 
         if (client == null)
         {
+            _logger.LogWarning(
+                "Client {ClientId} was not found while deleting information", 
+                id
+                );
+            
             return false;
         }
 
         await _clientRepository.DeleteClient(id);
         await _clientRepository.SaveAsync();
 
+        _logger.LogInformation(
+            "Client {ClientId} was deleted", 
+            id
+            );
+        
         return true;
     }
 
     public async Task<ClientResponseDTO?> GetClientByNameAsync(string name)
     {
+        _logger.LogInformation(
+            "Getting client {ClientName} by name", 
+            name
+            );
+        
         var client = await _clientRepository.GetClientByName(name);
 
         if (client == null)
         {
+            _logger.LogWarning(
+                "Client {ClientName} was not found", 
+                name
+                );
+            
             return null;
         }
 
@@ -169,6 +262,11 @@ public class ClientService : IClientService
             PhoneNumber = client.PhoneNumber,
             Status = client.Status
         };
+        
+        _logger.LogInformation(
+            "Client with {ClientName} was found", 
+            name
+            );
         
         return response;
     }

@@ -8,14 +8,11 @@ namespace BankAPI.Controllers;
 [Route("api/clients")]
 public class ClientsControllers : ControllerBase
 {
-    private readonly ILogger<ClientsControllers> _logger;
     private readonly IClientService _clientService;
 
     public ClientsControllers(
-        ILogger<ClientsControllers> logger, 
         IClientService clientService)
     {
-        _logger = logger;
         _clientService = clientService;
     }
 
@@ -23,13 +20,11 @@ public class ClientsControllers : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ClientResponseDTO>> GetClientById(int id)
     {
-        _logger.LogInformation("Get client {ClientId}", id);
-
         var client = await _clientService.GetClientByIdAsync(id);
         
         if (client is null)
         {
-            return NotFound($"Client {id} not found");
+            return NotFound();
         }
         
         return Ok(client);
@@ -51,8 +46,6 @@ public class ClientsControllers : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ClientResponseDTO>>> GetAllClientsAsync()
     {
-        _logger.LogInformation("Get All Clients");
-        
         var clients = await _clientService.GetAllClientsAsync();
 
         if (!clients.Any())
@@ -67,13 +60,11 @@ public class ClientsControllers : ControllerBase
     [HttpGet("{name}")]
     public async Task<ActionResult<ClientResponseDTO>> GetClientByName(string name)
     {
-        _logger.LogInformation("Get client by name {name}", name);
-
         var client = await _clientService.GetClientByNameAsync(name);
 
         if (client is null)
         {
-            return NotFound($"Client {name} not found");
+            return NotFound();
         }
 
         return Ok(client);
@@ -83,18 +74,16 @@ public class ClientsControllers : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteClient(int id)
     {
-        _logger.LogInformation("Delete client with id {id}", id);
-        
         var client = await _clientService.GetClientByIdAsync(id);
 
         if (client == null)
         {
-            return NotFound($"Client with id {id} not found");
+            return NotFound();
         }
         
         await _clientService.DeleteClientAsync(id);
         
-        return Ok("Client deleted");
+        return Ok();
     }
 
     [HttpPut("{id:int}")]
@@ -102,13 +91,11 @@ public class ClientsControllers : ControllerBase
         [FromRoute] int id, 
         [FromBody] ClientUpdateDTO dto)
     {
-        _logger.LogInformation("Update client with id {id}", id);
-        
         var client = await _clientService.UpdateClientAsync(id, dto);
 
         if (client is null)
         {
-            return NotFound($"Client {id} not found");
+            return NotFound();
         }
         
         return Ok(client);
@@ -121,7 +108,7 @@ public class ClientsControllers : ControllerBase
 
         if (!result)
         {
-            return NotFound($"Client with id {id} not found");
+            return NotFound();
         }
         
         return NoContent();
@@ -130,9 +117,7 @@ public class ClientsControllers : ControllerBase
     [HttpGet("active")]
     public async Task<ActionResult<IEnumerable<ClientResponseDTO>>> GetAllActiveClients()
     {
-        _logger.LogInformation("GetAllActiveClients");
-
-        var result = await _clientService.GetActiveAclientsAsync();
+        var result = await _clientService.GetActiveСlientsAsync();
         
         return Ok(result);
     }

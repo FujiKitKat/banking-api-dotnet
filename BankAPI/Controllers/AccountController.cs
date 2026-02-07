@@ -9,15 +9,12 @@ namespace BankAPI.Controllers;
 
 public class AccountController : ControllerBase
 {
-    private readonly ILogger<AccountController> _logger;
     private readonly IAccountService _accountService;
 
-    private AccountController(
-        ILogger<AccountController> logger,
+    public AccountController(
         IAccountService accountService
         )
     {
-        _logger = logger;
         _accountService = accountService;
     }
 
@@ -66,5 +63,13 @@ public class AccountController : ControllerBase
         }
         
         return Ok(updateAccount);
+    }
+
+    [HttpPatch("{id:int}/status")]
+    public async Task<ActionResult<bool>> CloseAccountAsync(int id)
+    {
+        var closeAccount = await _accountService.CloseAccountAsync(id);
+
+        return Ok(closeAccount);
     }
 }

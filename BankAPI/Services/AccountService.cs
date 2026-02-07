@@ -8,18 +8,30 @@ namespace BankAPI.Services;
 public class AccountService : IAccountService
 {
     private readonly IAccountRepository _accountRepository;
-
-    public AccountService(IAccountRepository accountRepository)
+    private readonly ILogger<AccountService> _logger;
+    public AccountService(IAccountRepository accountRepository, 
+        ILogger<AccountService> logger)
     {
         _accountRepository = accountRepository;
+        _logger = logger;
     }
 
     public async Task<AccountResponseDto?> GetAccountByIdAsync(int id)
     {
+        _logger.LogInformation(
+            "Getting account {AccountId}", 
+            id
+            );
+        
         var account = await _accountRepository.GetAccountAsync(id);
 
         if (account == null)
         {
+            _logger.LogWarning(
+                "Account{AccountId} not found",
+                id
+                );
+            
             return null;
         }
         
@@ -32,11 +44,20 @@ public class AccountService : IAccountService
             ClientId = account.ClientId,
         };
         
+        _logger.LogInformation(
+            "Account {AccountId} retrieved", 
+            id
+            );
+        
         return response;
     }
 
     public async Task<AccountResponseDto> CreateAccount(AccountCreateDto  accountCreateDto)
     {
+        _logger.LogInformation(
+            "Creating account"
+            );
+        
         AccountModel account = new AccountModel
         {
             Balance = 0,
@@ -58,6 +79,10 @@ public class AccountService : IAccountService
             AccountType = createdAccount.AccountType
         };
 
+        _logger.LogInformation(
+            "Account was created successfully"
+            );
+        
         return response;
     }
 
@@ -81,23 +106,45 @@ public class AccountService : IAccountService
             response.Add(dto);
         }
         
+        _logger.LogInformation(
+            "Got {accountCount} accounts from the database",
+            response.Count
+            );
+        
         return response;
     }
 
     public async Task<AccountResponseDto?> AccountUpdateStatusAsync(int id, AccountUpdateDto accountUpdateDto)
     {
+        _logger.LogInformation(
+            "Updating account {AccountId} status {Status}", 
+            id, 
+            accountUpdateDto.Status
+            );
+        
         var account = await _accountRepository.GetAccountAsync(id);
 
         if (account == null)
         {
+            _logger.LogWarning(
+                "Account{AccountId} not found", 
+                id
+                );
+            
             return null;
         }
 
         if (account.Status == AccountStatus.Closed)
         {
+            _logger.LogWarning(
+                "Account {AccountId} status is closed", 
+                id
+                );
+            
             return null;
         }
-        
+
+        var oldStatus = account.Status;
         account.Status = accountUpdateDto.Status;
 
         await _accountRepository.SaveAsync();
@@ -110,6 +157,43 @@ public class AccountService : IAccountService
             Status = account.Status,
         };
         
+        _logger.LogInformation(
+            "Account {AccountId} status was updated from {OldStatus} to {NewStatus}", 
+            id, 
+            oldStatus, 
+            response.Status
+            );
+        
         return response;
+    }
+
+    public async Task<bool> CloseAccountAsync(int id)
+    {
+        _logger.LogInformation(
+            "Closing Account {AccountId}", 
+            id
+            );
+        
+        var account = await _accountRepository.GetAccountAsync(id);
+
+        if (account == null)
+        {
+            _logger.LogWarning(
+                "Account {AccountId} was not found", 
+                id
+                );
+            
+            return false;
+        }
+        
+        account.Status = AccountStatus.Closed;
+        await _accountRepository.SaveAsync();
+        
+        _logger.LogInformation(
+            "Account {AccountId} closed", 
+            id
+            );
+        
+        return true;
     }
 }
