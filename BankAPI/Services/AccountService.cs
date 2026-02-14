@@ -65,7 +65,7 @@ public class AccountService : IAccountService
             Status = AccountStatus.Active,
             AccountNumber = Guid.NewGuid().ToString(),
             ClientId = accountCreateDto.ClientId,
-            AccountType = accountCreateDto.AccountType
+            AccountType = accountCreateDto.AccountType,
             
         };
 
@@ -76,7 +76,7 @@ public class AccountService : IAccountService
             ClientId = createdAccount.ClientId,
             Balance = createdAccount.Balance,
             Status = createdAccount.Status,
-            AccountType = createdAccount.AccountType
+            AccountType = createdAccount.AccountType,
         };
 
         _logger.LogInformation(
@@ -195,5 +195,57 @@ public class AccountService : IAccountService
             );
         
         return true;
+    }
+
+    public async Task<AccountResponseDto?> AccountUpdatePlanAsync(int id, AccountUpdateDto accountUpdateDto)
+    {
+        _logger.LogInformation(
+            "Updating plan of account {AccountId}", 
+            id
+            );
+        
+        var account = await _accountRepository.GetAccountAsync(id);
+
+        if (account == null)
+        {
+            _logger.LogWarning(
+                "Account {AccountId} was not found", 
+                id
+                );
+            
+            return null;
+        }
+
+        if (account.Status == AccountStatus.Closed)
+        {
+            _logger.LogWarning(
+                "Account {AccountId} status is closed", 
+                id
+                );
+            
+            return null;
+        }
+        
+        var oldPlan = account.Plan;
+        account.Plan =  accountUpdateDto.Plan;
+        await _accountRepository.SaveAsync();
+
+        var response = new AccountResponseDto
+        {
+            ClientId = account.ClientId,
+            Balance = account.Balance,
+            AccountNumber = account.AccountNumber,
+            Status = account.Status,
+            Plan = account.Plan
+        };
+        
+        _logger.LogInformation(
+            "Changed account{AccountId} plan from {OldPlan} to {NewPlan}", 
+            id, 
+            oldPlan, 
+            response.Plan
+            );
+        
+        return response;
     }
 }

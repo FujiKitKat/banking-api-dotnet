@@ -10,4 +10,5 @@ public class AccountResponseDto
     public int ClientId { get; set; }
     public string? AccountNumber {get; set;}
     public DateTime CreatedAt { get; set; }
+    public AccountPlan Plan { get; set; }
 }

@@ -13,4 +13,5 @@ public class AccountModel
     public DateTime CreatedAt { get; set; }
     public int ClientId { get; set; }
     public ClientModel Client { get; set; }
+    public AccountPlan Plan { get; set; }
 }

@@ -34,5 +34,10 @@ public class AccountConfiguration : IEntityTypeConfiguration<AccountModel>
             .WithMany(x => x.Accounts)
             .HasForeignKey(x => x.ClientId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.Property(x => x.Plan)
+            .HasDefaultValue(AccountPlan.Basic)
+            .IsRequired();
+        
     }
 }

@@ -1,4 +1,3 @@
-using BankAPI.Enum;
 using BankAPI.Models;
 using BankAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

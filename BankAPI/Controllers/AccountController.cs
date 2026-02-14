@@ -72,4 +72,17 @@ public class AccountController : ControllerBase
 
         return Ok(closeAccount);
     }
+
+    [HttpPatch("{id:int}/plan")]
+    public async Task<ActionResult<AccountResponseDto>> UpdatePlanAsync(int id, 
+        AccountUpdateDto accountUpdateDto)
+    {
+        var updateAccountPlan = await _accountService.AccountUpdatePlanAsync(id, accountUpdateDto);
+
+        if (updateAccountPlan is null)
+        {
+            return NotFound();
+        }
+        return Ok(updateAccountPlan);
+    }
 }
