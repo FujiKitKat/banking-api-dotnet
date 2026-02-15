@@ -3224,40 +3224,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\anton\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/admin/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\Desktop\\dotNETcore\\PortfolioDotNet\\BankAPI\\BankAPI.Tests\\BankAPI.Tests\\BankAPI.Tests.csproj",
+      "projectUniqueName": "/Users/admin/Desktop/BankApi/banking-api-dotnet/BankAPI.Tests/BankAPI.Tests/BankAPI.Tests.csproj",
       "projectName": "BankAPI.Tests",
-      "projectPath": "C:\\Users\\anton\\Desktop\\dotNETcore\\PortfolioDotNet\\BankAPI\\BankAPI.Tests\\BankAPI.Tests\\BankAPI.Tests.csproj",
-      "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\Desktop\\dotNETcore\\PortfolioDotNet\\BankAPI\\BankAPI.Tests\\BankAPI.Tests\\obj\\",
+      "projectPath": "/Users/admin/Desktop/BankApi/banking-api-dotnet/BankAPI.Tests/BankAPI.Tests/BankAPI.Tests.csproj",
+      "packagesPath": "/Users/admin/.nuget/packages/",
+      "outputPath": "/Users/admin/Desktop/BankApi/banking-api-dotnet/BankAPI.Tests/BankAPI.Tests/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/admin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\anton\\Desktop\\dotNETcore\\PortfolioDotNet\\BankAPI\\BankAPI\\BankAPI.csproj": {
-              "projectPath": "C:\\Users\\anton\\Desktop\\dotNETcore\\PortfolioDotNet\\BankAPI\\BankAPI\\BankAPI.csproj"
+            "/Users/admin/Desktop/BankApi/banking-api-dotnet/BankAPI/BankAPI.csproj": {
+              "projectPath": "/Users/admin/Desktop/BankApi/banking-api-dotnet/BankAPI/BankAPI.csproj"
             }
           }
         }
@@ -3315,7 +3307,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

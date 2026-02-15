@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54ca2b18_002Dcf83_002D4661_002Db5c4_002D5fb104a29d2d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetClientByNameAsync_ShouldReturnResponse_WhenClientExists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::88F55DF0-EADA-A5BC-D6D8-BFBFC22085C9::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByNameAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::88F55DF0-EADA-A5BC-D6D8-BFBFC22085C9::net10.0::BankAPI.Tests.ClientServiceTests.GetClientAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::88F55DF0-EADA-A5BC-D6D8-BFBFC22085C9::net10.0::BankAPI.Tests.ClientServiceTests.CreateClientAsync_ShouldReturnResponse_WhenClientCreated&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::88F55DF0-EADA-A5BC-D6D8-BFBFC22085C9::net10.0::BankAPI.Tests.ClientServiceTests.UpdateClientAsync_ShouldReturnResponse_WhenClientUpdated&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
