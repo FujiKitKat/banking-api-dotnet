@@ -3,7 +3,7 @@ using BankAPI.Enum;
 namespace BankAPI.DTO.AccountDTO;
 
 public class AccountResponseDto
-{
+{ 
     public decimal Balance { get; set; }
     public AccountStatus Status { get; set; }
     public AccountType AccountType { get; set; }
@@ -11,4 +11,5 @@ public class AccountResponseDto
     public string? AccountNumber {get; set;}
     public DateTime CreatedAt { get; set; }
     public AccountPlan Plan { get; set; }
+    public int AccountId { get; set; }
 }

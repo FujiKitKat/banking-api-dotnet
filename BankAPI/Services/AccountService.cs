@@ -77,6 +77,8 @@ public class AccountService : IAccountService
             Balance = createdAccount.Balance,
             Status = createdAccount.Status,
             AccountType = createdAccount.AccountType,
+            AccountNumber = createdAccount.AccountNumber,
+            AccountId = createdAccount.Id
         };
 
         _logger.LogInformation(

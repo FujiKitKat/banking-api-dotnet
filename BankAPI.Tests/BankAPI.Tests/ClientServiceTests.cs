@@ -1,4 +1,5 @@
 using BankAPI.DTO.ClientDTO;
+using BankAPI.Enum;
 using BankAPI.Repositories.Interfaces;
 using Moq;
 using BankAPI.Services;
@@ -142,6 +143,26 @@ public class ClientServiceTests
         var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
         
         var result = await service.DeleteClientAsync(clientId);
+        
+        Assert.True(result);
+    }
+
+    [Fact]
+    public async Task UpdateClientAsync_ShouldReturnResponse_WhenClientUpdated()
+    {
+        var mockClientRepository = new Mock<IClientRepository>();
+        var mockLogger = new Mock<ILogger<ClientService>>();
+        
+        var clientId = 1;
+        var clientStatus = ClientStatus.Blocked;
+        
+        mockClientRepository
+            .Setup(x => x.GetClientByIdAsync(clientId))
+            .ReturnsAsync(new ClientModel());
+        
+        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
+
+        var result = await service.ClientUpdateStatusAsync(clientId, clientStatus);
         
         Assert.True(result);
     }

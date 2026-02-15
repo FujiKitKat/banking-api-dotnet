@@ -1,0 +1,13 @@
+# Build folders
+bin/
+obj/
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS
+.DS_Store
+
+# Logs
+*.log

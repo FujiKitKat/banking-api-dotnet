@@ -31,7 +31,6 @@ public class EfClientRepository : IClientRepository
     public async Task<ClientModel?> GetClientByIdAsync(int id)
     {
         return await _db.Clients
-            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
