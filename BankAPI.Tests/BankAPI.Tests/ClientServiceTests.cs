@@ -220,4 +220,54 @@ public class ClientServiceTests
         
         mockClientRepository.Verify(x => x.GetAllClients(),Times.Once);
     }
+    
+    [Fact]
+    public async Task GetClientByIdAsync_ShouldReturnClient_WhenClientExists()
+    {
+        var mockClientRepository = new Mock<IClientRepository>();
+        var  mockLogger = new Mock<ILogger<ClientService>>();
+
+        var clientId = 1;
+
+        var clientModel = new ClientModel
+        {
+            Id = clientId
+        };
+        
+        mockClientRepository
+            .Setup(x => x.GetClientByIdAsync(clientId))
+            .ReturnsAsync(clientModel);
+        
+        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
+
+        var result = await service.GetClientByIdAsync(clientId);
+        
+        Assert.NotNull(result);
+        Assert.Equal(clientModel.Id, result.Id);
+        
+        mockClientRepository
+            .Verify(x => x.GetClientByIdAsync(clientId),
+                Times.Once);
+    }
+
+    [Fact]
+    public async Task GetClientByIdAsync_ShouldReturnNull_WhenClientDoesNotExist()
+    {
+        var mockClientRepository = new Mock<IClientRepository>();
+        var mockLogger = new Mock<ILogger<ClientService>>();
+        
+        mockClientRepository
+            .Setup(x => x.GetClientByIdAsync(It.IsAny<int>()))
+            .ReturnsAsync((ClientModel?)null);
+
+        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
+
+        var result = await service.GetClientByIdAsync(999);
+        
+        Assert.Null(result);
+        
+        mockClientRepository
+            .Verify(x => x.GetClientByIdAsync(It.IsAny<int>()),
+                Times.Once);
+    }
 }
