@@ -2,5 +2,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=13ac68a2_002Df7f6_002D443a_002D8f68_002D1221f5bb8d7e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="DeleteClientAsync_ShouldReturnResponse_WhenClientDeleted" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.DeleteClientAsync_ShouldReturnResponse_WhenClientDeleted&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetAllActiveClientsAsync_ShouldReturnResponse_WhenActiveClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByNameAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

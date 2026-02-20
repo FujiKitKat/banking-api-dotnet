@@ -166,4 +166,58 @@ public class ClientServiceTests
         
         Assert.True(result);
     }
+
+    [Fact]
+    public async Task GetAllActiveClientsAsync_ShouldReturnResponse_WhenActiveClientExists()
+    {
+        var mockClientRepository = new Mock<IClientRepository>();
+        var mockLogger = new Mock<ILogger<ClientService>>();
+
+        var clientModel = new List<ClientModel>
+        {
+            new ClientModel() 
+            { 
+                Id = 1, 
+                Name = "James", 
+                Status = ClientStatus.Active
+            },
+            
+            new ClientModel()
+            {
+                Id = 2, 
+                Name = "James2", 
+                Status = ClientStatus.Active
+            },
+            
+            new ClientModel()
+            {
+                Id = 3,
+                Name = "James3",
+                Status = ClientStatus.Blocked
+            },
+            
+            new ClientModel()
+            {
+                Id = 4,
+                Name = "James4",
+                Status = ClientStatus.Suspended
+            }
+        };
+        
+        mockClientRepository
+            .Setup(x => x.GetAllClients())
+            .ReturnsAsync(clientModel);
+        
+        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
+
+        var result = await service.GetActiveСlientsAsync();
+        
+        var resultList = result.ToList();
+        
+        Assert.NotNull(result);
+        Assert.Equal(2, resultList.Count);
+        Assert.All(resultList, x => Assert.Equal(ClientStatus.Active, x.Status));
+        
+        mockClientRepository.Verify(x => x.GetAllClients(),Times.Once);
+    }
 }
