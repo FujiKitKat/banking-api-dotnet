@@ -4,5 +4,12 @@
     &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.DeleteClientAsync_ShouldReturnResponse_WhenClientDeleted&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetAllActiveClientsAsync_ShouldReturnResponse_WhenActiveClientExists&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByNameAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByIdAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.UpdateClientAsync_ShouldReturnResponse_WhenClientUpdated&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetAllClientsAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientAsync_ShouldReturnResponse_WhenClientExists&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.CreateClientAsync_ShouldReturnResponse_WhenClientCreated&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByIdAsync_ShouldReturnNull_WhenClientDoesNotExist&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F6B2EEFD-6543-4050-BD78-A3C6163D2DCA::net10.0::BankAPI.Tests.ClientServiceTests.GetClientByIdAsync_ShouldReturnClient_WhenClientExists&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
