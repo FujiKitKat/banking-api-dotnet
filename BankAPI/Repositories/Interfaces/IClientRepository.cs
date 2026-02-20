@@ -8,7 +8,6 @@ public interface IClientRepository
     Task <List<ClientModel>> GetAllClients();
     Task<ClientModel?> GetClientByIdAsync(int id);
     Task<ClientModel?> GetClientByName(string name);
-    Task<bool> DeleteClient (int id);
     Task SaveAsync();
 
 }
