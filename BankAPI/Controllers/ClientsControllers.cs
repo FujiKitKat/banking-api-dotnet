@@ -70,22 +70,6 @@ public class ClientsControllers : ControllerBase
         return Ok(client);
     }
 
-    //Delete client
-    [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteClient(int id)
-    {
-        var client = await _clientService.GetClientByIdAsync(id);
-
-        if (client == null)
-        {
-            return NotFound();
-        }
-        
-        await _clientService.DeleteClientAsync(id);
-        
-        return Ok();
-    }
-
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateClient(
         [FromRoute] int id, 

@@ -129,25 +129,6 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public async Task DeleteClientAsync_ShouldReturnResponse_WhenClientDeleted()
-    {
-        var mockClientRepository = new Mock<IClientRepository>();
-        var mockLogger = new Mock<ILogger<ClientService>>();
-        
-        var clientId = 1;
-        
-        mockClientRepository
-            .Setup(x => x.DeleteClient(clientId))
-            .ReturnsAsync(true);
-        
-        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
-        
-        var result = await service.DeleteClientAsync(clientId);
-        
-        Assert.True(result);
-    }
-
-    [Fact]
     public async Task UpdateClientAsync_ShouldReturnResponse_WhenClientUpdated()
     {
         var mockClientRepository = new Mock<IClientRepository>();

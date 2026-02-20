@@ -206,36 +206,6 @@ public class ClientService : IClientService
         }).ToList();
     }
 
-    public async Task<bool> DeleteClientAsync(int id)
-    {
-        _logger.LogInformation(
-            "Deleting client {ClientId}", 
-            id
-            );
-        
-    var client = await _clientRepository.GetClientByIdAsync(id);
-
-        if (client == null)
-        {
-            _logger.LogWarning(
-                "Client {ClientId} was not found while deleting information", 
-                id
-                );
-            
-            return false;
-        }
-
-        await _clientRepository.DeleteClient(id);
-        await _clientRepository.SaveAsync();
-
-        _logger.LogInformation(
-            "Client {ClientId} was deleted", 
-            id
-            );
-        
-        return true;
-    }
-
     public async Task<ClientResponseDTO?> GetClientByNameAsync(string name)
     {
         _logger.LogInformation(

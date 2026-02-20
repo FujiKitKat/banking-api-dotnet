@@ -41,21 +41,6 @@ public class EfClientRepository : IClientRepository
             .FirstOrDefaultAsync(x => x.Name == name);
     }
 
-    public async Task<bool> DeleteClient(int id)
-    {
-        var isExistClient = await _db.Clients
-            .FirstOrDefaultAsync(x => x.Id == id);
-
-        if (isExistClient == null)
-        {
-            return false;
-        }
-
-        _db.Clients.Remove(isExistClient);
-        _db.SaveChanges();
-        return true;
-    }
-
     //Proxy method
     public Task SaveAsync()
     {
