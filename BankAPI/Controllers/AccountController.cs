@@ -19,9 +19,9 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("id:int")]
-    public async Task<ActionResult<AccountResponseDto>> GetById(int id)
+    public async Task<ActionResult<AccountResponseDto>> GetById(int accountId, int clientId)
     {
-        var account = await _accountService.GetAccountByIdAsync(id);
+        var account = await _accountService.GetAccountByIdAsync(accountId,  clientId);
 
         if (account is null)
         {
@@ -43,7 +43,7 @@ public class AccountController : ControllerBase
             );
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountResponseDto>>> GetAllAccountsByClientId(int clientId)
     {
         var accounts = await _accountService.GetAllAccountsByClientIdAsync(clientId);
@@ -51,11 +51,18 @@ public class AccountController : ControllerBase
         return Ok(accounts);
     }
 
-    [HttpPatch("{id:int}")]
-    public async Task<ActionResult<AccountResponseDto>> AccountUpdateStatusAsync(int id,
-        AccountUpdateDto accountUpdateDto)
+    [HttpPatch("UpdateStatusAsync")]
+    public async Task<ActionResult<AccountResponseDto>> AccountUpdateStatusAsync(
+        int accountId, 
+        int clientId,
+        AccountUpdateDto accountUpdateDto
+        )
     {
-        var updateAccount = await _accountService.AccountUpdateStatusAsync(id, accountUpdateDto);
+        var updateAccount = await _accountService.AccountUpdateStatusAsync(
+            accountId, 
+            clientId, 
+            accountUpdateDto
+            );
 
         if (updateAccount is null)
         {
@@ -65,19 +72,29 @@ public class AccountController : ControllerBase
         return Ok(updateAccount);
     }
 
-    [HttpPatch("{id:int}/status")]
-    public async Task<ActionResult<bool>> CloseAccountAsync(int id)
+    [HttpPatch("/status")]
+    public async Task<ActionResult<bool>> CloseAccountAsync(
+        int accountId, 
+        int clientId
+        )
     {
-        var closeAccount = await _accountService.CloseAccountAsync(id);
+        var closeAccount = await _accountService.CloseAccountAsync(accountId, clientId);
 
         return Ok(closeAccount);
     }
 
-    [HttpPatch("{id:int}/plan")]
-    public async Task<ActionResult<AccountResponseDto>> UpdatePlanAsync(int id, 
-        AccountUpdateDto accountUpdateDto)
+    [HttpPatch("/plan")]
+    public async Task<ActionResult<AccountResponseDto>> UpdatePlanAsync(
+        int accountId, 
+        int clientId, 
+        AccountUpdateDto accountUpdateDto
+        )
     {
-        var updateAccountPlan = await _accountService.AccountUpdatePlanAsync(id, accountUpdateDto);
+        var updateAccountPlan = await _accountService.AccountUpdatePlanAsync(
+            accountId, 
+            clientId, 
+            accountUpdateDto
+            );
 
         if (updateAccountPlan is null)
         {

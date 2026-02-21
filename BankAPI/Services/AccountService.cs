@@ -16,20 +16,23 @@ public class AccountService : IAccountService
         _logger = logger;
     }
 
-    public async Task<AccountResponseDto?> GetAccountByIdAsync(int id)
+    public async Task<AccountResponseDto?> GetAccountByIdAsync(
+        int accountId, 
+        int clientId
+        )
     {
         _logger.LogInformation(
             "Getting account {AccountId}", 
-            id
+            accountId
             );
         
-        var account = await _accountRepository.GetAccountAsync(id);
+        var account = await _accountRepository.GetAccountAsync(accountId,  clientId);
 
         if (account == null)
         {
             _logger.LogWarning(
                 "Account{AccountId} not found",
-                id
+                accountId
                 );
             
             return null;
@@ -46,7 +49,7 @@ public class AccountService : IAccountService
         
         _logger.LogInformation(
             "Account {AccountId} retrieved", 
-            id
+            accountId
             );
         
         return response;
@@ -116,21 +119,25 @@ public class AccountService : IAccountService
         return response;
     }
 
-    public async Task<AccountResponseDto?> AccountUpdateStatusAsync(int id, AccountUpdateDto accountUpdateDto)
+    public async Task<AccountResponseDto?> AccountUpdateStatusAsync(
+        int accountId, 
+        int clientId, 
+        AccountUpdateDto accountUpdateDto
+        )
     {
         _logger.LogInformation(
             "Updating account {AccountId} status {Status}", 
-            id, 
+            accountId, 
             accountUpdateDto.Status
             );
         
-        var account = await _accountRepository.GetAccountAsync(id);
+        var account = await _accountRepository.GetAccountAsync(accountId, clientId);
 
         if (account == null)
         {
             _logger.LogWarning(
                 "Account{AccountId} not found", 
-                id
+                accountId
                 );
             
             return null;
@@ -140,7 +147,7 @@ public class AccountService : IAccountService
         {
             _logger.LogWarning(
                 "Account {AccountId} status is closed", 
-                id
+                accountId
                 );
             
             return null;
@@ -161,7 +168,7 @@ public class AccountService : IAccountService
         
         _logger.LogInformation(
             "Account {AccountId} status was updated from {OldStatus} to {NewStatus}", 
-            id, 
+            accountId, 
             oldStatus, 
             response.Status
             );
@@ -169,20 +176,23 @@ public class AccountService : IAccountService
         return response;
     }
 
-    public async Task<bool> CloseAccountAsync(int id)
+    public async Task<bool> CloseAccountAsync(
+        int accountId, 
+        int clientId
+        )
     {
         _logger.LogInformation(
             "Closing Account {AccountId}", 
-            id
+            accountId
             );
         
-        var account = await _accountRepository.GetAccountAsync(id);
+        var account = await _accountRepository.GetAccountAsync(accountId, clientId);
 
         if (account == null)
         {
             _logger.LogWarning(
                 "Account {AccountId} was not found", 
-                id
+                accountId
                 );
             
             return false;
@@ -193,26 +203,30 @@ public class AccountService : IAccountService
         
         _logger.LogInformation(
             "Account {AccountId} closed", 
-            id
+            accountId
             );
         
         return true;
     }
 
-    public async Task<AccountResponseDto?> AccountUpdatePlanAsync(int id, AccountUpdateDto accountUpdateDto)
+    public async Task<AccountResponseDto?> AccountUpdatePlanAsync(
+        int accountId, 
+        int clientId, 
+        AccountUpdateDto accountUpdateDto
+        )
     {
         _logger.LogInformation(
             "Updating plan of account {AccountId}", 
-            id
+            accountId
             );
         
-        var account = await _accountRepository.GetAccountAsync(id);
+        var account = await _accountRepository.GetAccountAsync(accountId,  clientId);
 
         if (account == null)
         {
             _logger.LogWarning(
                 "Account {AccountId} was not found", 
-                id
+                accountId
                 );
             
             return null;
@@ -222,7 +236,7 @@ public class AccountService : IAccountService
         {
             _logger.LogWarning(
                 "Account {AccountId} status is closed", 
-                id
+                accountId
                 );
             
             return null;
@@ -243,7 +257,7 @@ public class AccountService : IAccountService
         
         _logger.LogInformation(
             "Changed account{AccountId} plan from {OldPlan} to {NewPlan}", 
-            id, 
+            accountId, 
             oldPlan, 
             response.Plan
             );
