@@ -12,11 +12,11 @@ public class EfAccountRepository : IAccountRepository
         _db = db;
     }
     
-    public async Task<AccountModel?> GetAccountAsync(int id)
+    public async Task<AccountModel?> GetAccountAsync(int accountId, int clientId)
     {
         return await _db.Accounts
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id);
+            //.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == accountId && x.ClientId == clientId);
     }
 
     public async Task<List<AccountModel>> GetAllAccountsByClientIdAsync(int  clientId)
