@@ -45,6 +45,7 @@ public class AccountService : IAccountService
             CreatedAt = account.CreatedAt,
             AccountNumber = account.AccountNumber,
             ClientId = account.ClientId,
+            AccountId = account.Id
         };
         
         _logger.LogInformation(
@@ -84,6 +85,8 @@ public class AccountService : IAccountService
             AccountId = createdAccount.Id
         };
 
+        await _accountRepository.SaveAsync();
+        
         _logger.LogInformation(
             "Account was created successfully"
             );
