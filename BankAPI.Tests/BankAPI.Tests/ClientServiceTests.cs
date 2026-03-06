@@ -72,6 +72,31 @@ public class ClientServiceTests
     }
 
     [Fact]
+    public async Task GetClientAsync_ShouldReturnNull_WhenClientDoesNotExist()
+    {
+        var mockClientRepository = new Mock<IClientRepository>();
+        var mockLogger = new Mock<ILogger<ClientService>>();
+        
+        var clientId = 1;
+
+        mockClientRepository
+            .Setup(x => x.GetClientByIdAsync(clientId))
+            .ReturnsAsync((ClientModel?)null);
+
+        var service = new ClientService(mockClientRepository.Object, mockLogger.Object);
+        
+        var result = await service.GetClientByIdAsync(clientId);
+        
+        Assert.Null(result);
+        
+        mockClientRepository
+            .Verify(x => x.GetClientByIdAsync(
+                    clientId), 
+                Times.Once
+                );
+    }
+
+    [Fact]
     public async Task GetAllClientsAsync_ShouldReturnResponse_WhenClientExists()
     {
         var mockClientRepository = new Mock<IClientRepository>();
