@@ -47,16 +47,18 @@ Swagger UI:
 https://banking-api-dotnet-2.onrender.com/swagger/index.html
 
 ## Project Structure
-Controllers – API endpoints
-Data – database context
-Configuration – application configuration and settings
-DTOs – request/response models
-Middleware – custom request/response pipeline components
-Migrations – Entity Framework database migrations
-Models – entities
-Repositories – data access layer
-Services – business logic    
-Validators – request validation logic
+- Controllers – API endpoints
+- Data – database context
+- Configuration – application configuration and settings
+- DTOs – request/response models
+- Middleware – custom request/response pipeline components
+- Migrations – Entity Framework database migrations
+- Models – entities
+- Repositories – data access layer
+- Services – business logic    
+- Validators – request validation logic
+
+
 
 ## Architecture
 Client applications interact with the API through HTTP requests.  
@@ -76,4 +78,26 @@ flowchart TD
     Services --> Repositories[Repositories]
 
     Repositories --> Database[(SQL Database)]
+    
+## JWT Authentication Flow
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    participant AuthService
+    participant Database
+
+    Client->>API: POST /api/auth/login (credentials)
+    API->>AuthService: validate credentials
+    AuthService->>Database: get user
+    Database-->>AuthService: user data
+    AuthService-->>API: generate JWT token
+    API-->>Client: return JWT token
+
+    Client->>API: GET /api/accounts (Authorization: Bearer TOKEN)
+    API->>API: validate JWT
+    API-->>Client: return protected data
+    
+
 
