@@ -1,6 +1,9 @@
 using BankAPI.DTO.Auth;
 using BankAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using LoginRequest = BankAPI.DTO.Auth.LoginRequest;
 
 namespace BankAPI.Controllers;
 
@@ -27,5 +30,14 @@ public class AuthController : ControllerBase
         }
 
         return Ok(token);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost("register")]
+    public async Task<ActionResult<UserResponse>> Register(CreateUserRequest createUserRequest)
+    {
+        var createUser = await _authService.CreateUserAsync(createUserRequest);
+        
+        return Ok(createUser);
     }
 }
